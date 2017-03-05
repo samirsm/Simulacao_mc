@@ -22,7 +22,7 @@ public class Host {
     }
     return maquinas;
   }
-
+  
   public boolean aloqueFF(Maquina maquina) {
     int mqIndex = 0;
     Maquina mqAtaul;
@@ -36,7 +36,44 @@ public class Host {
     }
     return false;
   }
-  
+
+  public boolean aloqueBF(Maquina maquina) {
+    int mqIndex = -1;
+    double[] melhorAlocacao = new double[2];
+    //melhorAlocacao[0] ->  mem melhorAlocacao[1] -> CPU
+    melhorAlocacao[0] = -1;
+    melhorAlocacao[1] = -1;
+
+    for (int i = 0; i < numeroDeMaquinas; i++) {
+      double[] alocacao = maquinas[i].alocar_BF(maquina);
+      if (alocacao[0]> 0 && alocacao[1]>0){
+        if (melhorAlocacao[0]==-1 && melhorAlocacao[0]==-1){
+          melhorAlocacao[0] = alocacao[0];
+          melhorAlocacao[1] = alocacao[0];
+        } else if (alocacao[0]< melhorAlocacao[0] && alocacao[1]<melhorAlocacao[1]){
+          melhorAlocacao[0] = alocacao[0];
+          melhorAlocacao[1] = alocacao[0];
+        }
+    }
+
+    if (melhorAlocacao[0]!=-1 && melhorAlocacao[0]!=-1){
+        return true
+    }
+    return false;
+  }
+
+
+  public boolean aloqueRF(Maquina maquina) {
+    Random rn = new Random();
+    int range = numeroDeMaquinas - 0 + 1;
+    int randomIndex =  rn.nextInt(range) + minimum;
+    if (mqAtaul.alocar(maquina)) {
+      return true;
+    }
+
+    return false;
+  }
+
   public double calcularFrag(){
     double frag=0;
     for (int i = 0; i < maquinas.length; i++) {
@@ -44,7 +81,5 @@ public class Host {
     }
     return frag;
   }
-
-
 
 }

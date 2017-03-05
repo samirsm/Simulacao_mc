@@ -23,6 +23,22 @@ public class Maquina {
     return cpu;
   }
   
+  public double[2] alocar_BF(Maquina maquina){
+    double capacidadeMemo = memo - memoEmUso;
+    double capacidadeCpu = cpu - cpuEmUso;
+    double[] capacidadeRestante = new double[2];
+
+    capacidadeRestante[0]= capacidadeMemo;
+    capacidadeRestante[1] = capacidadeCpu;
+
+    if(maquina.memo < capacidadeMemo && maquina.cpu < capacidadeCpu) {
+      memoEmUso += maquina.memo;
+      cpuEmUso += maquina.cpu;
+    }
+    return capacidadeRestante;
+
+  }
+
   public boolean alocar(Maquina maquina){
     double capacidadeMemo = memo - memoEmUso;
     double capacidadeCpu = cpu - cpuEmUso;

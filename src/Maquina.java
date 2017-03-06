@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Maquina {
 
@@ -5,6 +6,9 @@ public class Maquina {
   private double cpu;
   private double cpuEmUso;
   private double memoEmUso;
+  private int requisicao;
+  ArrayList<Maquina> maquinas = new ArrayList<>();
+  
   
 
   public Maquina(double memo, double cpu) {
@@ -12,6 +16,20 @@ public class Maquina {
     this.cpu = cpu;
     cpuEmUso = 0;
     memoEmUso = 0;
+  
+  }
+  
+  public int getRequisicao() {
+    return requisicao;
+  }
+
+  public Maquina(int requisicao, double memo, double cpu) {
+    this.requisicao = requisicao;
+    this.memo = memo;
+    this.cpu = cpu;
+    cpuEmUso = 0;
+    memoEmUso = 0;
+  
   }
 
   public double getMemo() {
@@ -19,37 +37,42 @@ public class Maquina {
   }
 
 
+  public double getCpuEmUso() {
+    return cpuEmUso;
+  }
+  
+  public double getMemoEmUso() {
+    return memoEmUso;
+  }
+
+
+  public double getMemoRestante() {
+    return memo - memoEmUso;
+  }
+
+  public double getCpuRestante() {
+    return cpu-cpuEmUso;
+  }
+
   public double getCpu() {
     return cpu;
   }
   
-  public double[2] alocar_BF(Maquina maquina){
-    double capacidadeMemo = memo - memoEmUso;
-    double capacidadeCpu = cpu - cpuEmUso;
-    double[] capacidadeRestante = new double[2];
-
-    capacidadeRestante[0]= capacidadeMemo;
-    capacidadeRestante[1] = capacidadeCpu;
-
-    if(maquina.memo < capacidadeMemo && maquina.cpu < capacidadeCpu) {
-      memoEmUso += maquina.memo;
-      cpuEmUso += maquina.cpu;
-    }
-    return capacidadeRestante;
-
-  }
 
   public boolean alocar(Maquina maquina){
-    double capacidadeMemo = memo - memoEmUso;
-    double capacidadeCpu = cpu - cpuEmUso;
-    if(maquina.memo < capacidadeMemo && maquina.cpu < capacidadeCpu) {
+    if(maquina.memo <= getMemoRestante() && maquina.cpu <= getCpuRestante()) {
       memoEmUso += maquina.memo;
       cpuEmUso += maquina.cpu;
+      maquinas.add(maquina);
       return true;
     }
     else return false;
   }
   
+  public ArrayList<Maquina> getMaquinas() {
+    return maquinas;
+  }
+
   public double getFragMemo(){
     return memo - memoEmUso;
   }
@@ -57,5 +80,9 @@ public class Maquina {
   public double getFragCpu(){
     return cpu - cpuEmUso;
   }
-
+  
+  public String toString(){
+    return "resta: " + getCpuRestante();
+  }
+  
 }

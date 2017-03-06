@@ -1,3 +1,4 @@
+import java.util.Random;
 
 public class Host {
 
@@ -7,8 +8,7 @@ public class Host {
 
 
 
-  public Host( Maquina mqPadrao,
-      int numeroDeMaquinas) {
+  public Host(Maquina mqPadrao, int numeroDeMaquinas) {
     super();
     this.mqPadrao = mqPadrao;
     this.numeroDeMaquinas = numeroDeMaquinas;
@@ -18,11 +18,11 @@ public class Host {
   private Maquina[] inicializaMaquinas(Maquina mqPadrao) {
     Maquina[] maquinas = new Maquina[numeroDeMaquinas];
     for (int i = 0; i < maquinas.length; i++) {
-      maquinas [i] = new Maquina(mqPadrao.getCpu(), mqPadrao.getMemo());
+      maquinas[i] = new Maquina(mqPadrao.getCpu(), mqPadrao.getMemo());
     }
     return maquinas;
   }
-  
+
   public boolean aloqueFF(Maquina maquina) {
     int mqIndex = 0;
     Maquina mqAtaul;
@@ -38,48 +38,54 @@ public class Host {
   }
 
   public boolean aloqueBF(Maquina maquina) {
-    int mqIndex = -1;
+
+    final int MEMO = 0;
+    final int CPU = 1;
+
     double[] melhorAlocacao = new double[2];
-    //melhorAlocacao[0] ->  mem melhorAlocacao[1] -> CPU
-    melhorAlocacao[0] = -1;
-    melhorAlocacao[1] = -1;
+    melhorAlocacao[MEMO] = Integer.MAX_VALUE;
+    melhorAlocacao[CPU] = Integer.MAX_VALUE;
+    int bestFitIndex = -1;
 
     for (int i = 0; i < numeroDeMaquinas; i++) {
-      double[] alocacao = maquinas[i].alocar_BF(maquina);
-      if (alocacao[0]> 0 && alocacao[1]>0){
-        if (melhorAlocacao[0]==-1 && melhorAlocacao[0]==-1){
-          melhorAlocacao[0] = alocacao[0];
-          melhorAlocacao[1] = alocacao[0];
-        } else if (alocacao[0]< melhorAlocacao[0] && alocacao[1]<melhorAlocacao[1]){
-          melhorAlocacao[0] = alocacao[0];
-          melhorAlocacao[1] = alocacao[0];
+      if ((maquinas[i].getMemoRestante() >= maquina.getMemo())
+          && (maquinas[i].getCpuRestante() >= maquina.getCpu())) {
+        if (((maquinas[i].getMemoRestante() - maquina.getMemo()) < melhorAlocacao[MEMO])
+            && ((maquinas[i].getCpuRestante() - maquina.getCpu()) < melhorAlocacao[CPU])) {
+          melhorAlocacao[MEMO] = maquinas[i].getMemoRestante() - maquina.getMemo();
+          melhorAlocacao[CPU] = maquinas[i].getCpuRestante() - maquina.getCpu();
+          bestFitIndex = i;
         }
+      }
     }
 
-    if (melhorAlocacao[0]!=-1 && melhorAlocacao[0]!=-1){
-        return true
+    if (bestFitIndex != -1) {
+      return maquinas[bestFitIndex].alocar(maquina);
+    } else {
+      return false;
     }
-    return false;
   }
-
 
   public boolean aloqueRF(Maquina maquina) {
     Random rn = new Random();
-    int range = numeroDeMaquinas - 0 + 1;
-    int randomIndex =  rn.nextInt(range) + minimum;
-    if (mqAtaul.alocar(maquina)) {
+    int randomIndex = rn.nextInt(numeroDeMaquinas) + 0;
+    if (maquinas[randomIndex].alocar(maquina)) {
       return true;
     }
 
     return false;
   }
 
-  public double calcularFrag(){
-    double frag=0;
+  public double calcularFrag() {
+    double frag = 0;
     for (int i = 0; i < maquinas.length; i++) {
       frag += maquinas[i].getFragCpu();
     }
     return frag;
+  }
+
+  public Maquina[] getMaquinas() {
+    return maquinas;
   }
 
 }

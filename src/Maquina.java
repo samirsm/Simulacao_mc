@@ -6,8 +6,6 @@ public class Maquina {
   private double cpuEmUso;
   private double memoEmUso;
   
-  
-
   public Maquina(double memo, double cpu) {
     this.memo = memo;
     this.cpu = cpu;
@@ -43,7 +41,9 @@ public class Maquina {
   }
   
 
+// método para alocação de VM no host
   public boolean alocar(Maquina maquina){
+//Caso o tamanho (memória e CPU) da VM seja menor ou igual ao tamanho restante do Host a máquina é alocada
     if(maquina.memo <= getMemoRestante() && maquina.cpu <= getCpuRestante()) {
       memoEmUso += maquina.memo;
       cpuEmUso += maquina.cpu;
@@ -51,8 +51,6 @@ public class Maquina {
     }
     else return false;
   }
-  
- 
 
   public double getFragMemo(){
     return memo - memoEmUso;

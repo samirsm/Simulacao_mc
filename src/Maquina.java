@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Maquina {
 
@@ -6,13 +7,26 @@ public class Maquina {
   private double cpuEmUso;
   private double memoEmUso;
   
+  private int requisicao;
+  ArrayList<Maquina> maquinas = new ArrayList<>();
+  
+
   public Maquina(double memo, double cpu) {
     this.memo = memo;
     this.cpu = cpu;
     cpuEmUso = 0;
     memoEmUso = 0;
   
-  }
+  } 
+  
+  public Maquina(int requisicao, double memo, double cpu) {
+	  this.requisicao = requisicao;
+	  this.memo = memo;
+	  this.cpu = cpu;
+	  cpuEmUso = 0;
+	  memoEmUso = 0;
+	    
+}
   
   public double getMemo() {
     return memo;
@@ -47,6 +61,7 @@ public class Maquina {
     if(maquina.memo <= getMemoRestante() && maquina.cpu <= getCpuRestante()) {
       memoEmUso += maquina.memo;
       cpuEmUso += maquina.cpu;
+      maquinas.add(maquina);
       return true;
     }
     else return false;
@@ -63,5 +78,16 @@ public class Maquina {
   public String toString(){
     return "resta: " + getCpuRestante();
   }
+  
+  
+  public int getRequisicao() {
+	      return requisicao;
+  }
+  
+  public ArrayList<Maquina> getMaquinas() {
+	      return maquinas;
+  }
+	  
+
   
 }

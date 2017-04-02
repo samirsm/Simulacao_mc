@@ -41,9 +41,9 @@ public class Maquina {
   }
   
 
-// método para alocação de VM no host
+// metodo para alocacao de VM no host
   public boolean alocar(Maquina maquina){
-//Caso o tamanho (memória e CPU) da VM seja menor ou igual ao tamanho restante do Host a máquina é alocada
+//Caso o tamanho (memoria e CPU) da VM seja menor ou igual ao tamanho restante do Host a maquina eh alocada
     if(maquina.memo <= getMemoRestante() && maquina.cpu <= getCpuRestante()) {
       memoEmUso += maquina.memo;
       cpuEmUso += maquina.cpu;

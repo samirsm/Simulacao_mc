@@ -107,24 +107,28 @@ public class Simulador {
     }
     
     // Hosts pequenos
-    System.out.println("requisicoes negadas pelo código Fist Fit:" + reqNegadasFF_hostP);
+    
+    System.out.println("Host pequeno");
+    System.out.println("requisicoes negadas pelo código Fist Fit: " + reqNegadasFF_hostP);
     System.out.println("Fragmentacao do código First Fit: " + hostFF_hostP.calcularFrag());
 
-    System.out.println("requisicoes negadas pelo código Best Fit:" + reqNegadasBF_hostP);
+    System.out.println("requisicoes negadas pelo código Best Fit: " + reqNegadasBF_hostP);
     System.out.println("Fragmentacao do código Best Fit: " + hostBF_hostP.calcularFrag());
 
-    System.out.println("requisicoes negadas pelo código Random Fit:" + reqNegadasRF_hostP);
+    System.out.println("requisicoes negadas pelo código Random Fit: " + reqNegadasRF_hostP);
     System.out.println("Fragmentacao do código Random Fit: " + hostRF_hostP.calcularFrag());
 
+    System.out.println("-------------------------------------------------------");
 
     // Hosts grandes
-    System.out.println("requisicoes negadas pelo código Fist Fit:" + reqNegadasFF_hostG);
+    System.out.println("Host grande");
+    System.out.println("requisicoes negadas pelo código Fist Fit: " + reqNegadasFF_hostG);
     System.out.println("Fragmentacao do código First Fit: " + hostFF_hostG.calcularFrag());
 
-    System.out.println("requisicoes negadas pelo código Best Fit:" + reqNegadasBF_hostG);
+    System.out.println("requisicoes negadas pelo código Best Fit: " + reqNegadasBF_hostG);
     System.out.println("Fragmentacao do código Best Fit: " + hostBF_hostG.calcularFrag());
 
-    System.out.println("requisicoes negadas pelo código Random Fit:" + reqNegadasRF_hostG);
+    System.out.println("requisicoes negadas pelo código Random Fit: " + reqNegadasRF_hostG);
     System.out.println("Fragmentacao do código Random Fit: " + hostRF_hostG.calcularFrag());
   
   }
